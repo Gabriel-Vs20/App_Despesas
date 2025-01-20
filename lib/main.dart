@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './models/transaction.dart';
+import 'package:intl/intl.dart';
 
 main() => runApp(AppGestao());
 
@@ -43,7 +44,6 @@ class HomePage extends StatelessWidget {
         title: Text('Despesas Pessoais'),   
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             
@@ -75,25 +75,58 @@ class HomePage extends StatelessWidget {
                       ),
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        tr.value.toString()
+                        'R\$ ' + tr.value.toStringAsFixed(2),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 255, 8, 0)
+                        ),
                       ),
-
+                    
                     ),
 
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(tr.title),
-                        Text(tr.date.toString()),
+                        Text(tr.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16
+                        ),
+                        ),
+                        Text(DateFormat('d/MMM/y').format(tr.date),
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 137, 128, 128)
+                        ),
+                        ),
                       ],
-                    )
-
-
-
-
+                    ),
                     ],
                     ),
                   );
               }).toList(),
+            ),
+            Card(
+              elevation: 5,
+               child: Padding(
+                 padding: const EdgeInsets.all(10),
+                 child: Column(
+                 children: [
+                 
+                    TextField(
+                      decoration: InputDecoration(
+                      labelText: 'Titulo',
+                      ),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                      labelText: 'Titulo',
+                      ),
+                    ),
+                 
+                 ],
+                               ),
+               ),
             ),
           ],
         ),
