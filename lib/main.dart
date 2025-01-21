@@ -17,25 +17,6 @@ class AppGestao extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
 
-  final transactions = [
-
-
-    Transaction(
-      id: 't1',
-      title: 'Novo Tênis de Corrida',
-      value: 310.00,
-      date: DateTime.now()
-    ),
-
-    Transaction(
-      id: 't2',
-      title: 'Nova Skin Valorant',
-      value: 211.00,
-      date: DateTime.now()
-    ),
-    
-
-  ];
   
   @override
   Widget build(BuildContext context) {
@@ -57,8 +38,8 @@ class HomePage extends StatelessWidget {
                 )
               ),
             ),
-            TransactionsList(transactions),
-            TransactionsField()
+            
+            
 
             
           ],

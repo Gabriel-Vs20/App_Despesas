@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 class TransactionsField extends StatelessWidget {
 
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -12,13 +15,15 @@ class TransactionsField extends StatelessWidget {
                  children: [
                  
                     TextField(
+                      controller: titleController,
                       decoration: InputDecoration(
                       labelText: 'Titulo',
                       ),
                     ),
                     TextField(
+                      controller: valueController,
                       decoration: InputDecoration(
-                      labelText: 'Titulo',
+                      labelText: 'Valor R\$',
                       ),
                     ),
                  
