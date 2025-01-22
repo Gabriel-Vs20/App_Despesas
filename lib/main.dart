@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './models/transaction.dart';
 import './components/transactions_list.dart';
 import './components/transactions_field.dart';
+import './components/transactions_user.dart';
 
 main() => runApp(AppGestao());
 
@@ -25,24 +26,27 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.red,
         title: Text('Despesas Pessoais'),   
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            
-            Container(
-              child: Card(
-                color: Colors.red,
-                elevation: 5,
-                child: Center(
-                  child: Text('Gráfico'),
-                )
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              
+              Container(
+                child: Card(
+                  color: Colors.red,
+                  elevation: 5,
+                  child: Center(
+                    child: Text('Gráfico'),
+                  )
+                ),
               ),
-            ),
-            
-            
-
-            
-          ],
+              
+              TransactionsUser()
+              
+          
+              
+            ],
+          ),
         ),
         );
   }
