@@ -5,9 +5,9 @@ class TransactionsField extends StatelessWidget {
   final titleController = TextEditingController();
   final valueController = TextEditingController();
 
-  final void Function( String, double) onSubmit;
+  final void Function( String, double) _addTransaction;
 
-  TransactionsField(this.onSubmit);
+  TransactionsField(this._addTransaction);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class TransactionsField extends StatelessWidget {
                     final title = titleController.text;
                     final value = double.tryParse(valueController.text) ?? 0.0;
 
-                    onSubmit(title, value);
+                    _addTransaction(title, value);
                    
                    },
                    child: Text(
