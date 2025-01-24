@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
-class TransactionsField extends StatelessWidget {
-
-  final titleController = TextEditingController();
-  final valueController = TextEditingController();
+class TransactionsField extends StatefulWidget {
 
   final void Function( String, double) _addTransaction;
 
   TransactionsField(this._addTransaction);
+
+  @override
+  State<TransactionsField> createState() => _TransactionsFieldState();
+}
+
+class _TransactionsFieldState extends State<TransactionsField> {
+  final titleController = TextEditingController();
+
+  final valueController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +53,8 @@ class TransactionsField extends StatelessWidget {
                     final title = titleController.text;
                     final value = double.tryParse(valueController.text) ?? 0.0;
 
-                    _addTransaction(title, value);
+                    widget._addTransaction(title, value);
+                    Navigator.pop(context);
                    
                    },
                    child: Text(
