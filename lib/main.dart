@@ -15,6 +15,7 @@ class AppGestao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
       theme: ThemeData(
         fontFamily: 'Lato',
@@ -25,7 +26,7 @@ class AppGestao extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.amber,
-          primary: Colors.purple,
+          primary: Colors.blue,
           secondary: Colors.amber,
           tertiary: Colors.black,
           
@@ -43,15 +44,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-   final transactions = [
-
-
-    Transaction(
-      id: 't1',
-      title: 'Sei lá',
-      value: 310.00,
-      date: DateTime.now()
-    ),
+   final List <Transaction>transactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Sei lá',
+    //   value: 310.00,
+    //   date: DateTime.now()
+    // ),
   ];
 
   _addTransaction (String title, double value){
@@ -90,13 +89,18 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               
-              Container(
-                child: Card(
-                  elevation: 5,
-                  child: Center(
-                    child: Text('Gráfico'),
-                  )
-                ),
+              Column(
+                children: [
+                  Container(
+                    child: Card(
+                      elevation: 5,
+                      child: Center(
+                        child: Text('Gráfico'),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                ],
               ),
 
               TransactionsList(transactions),
