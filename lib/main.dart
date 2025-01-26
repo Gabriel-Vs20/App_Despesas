@@ -8,10 +8,30 @@ main() => runApp(AppGestao());
 
 class AppGestao extends StatelessWidget {
 
+ 
+
+  final ThemeData tema = ThemeData();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MaterialApp(home: HomePage())
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+      theme: ThemeData(
+        fontFamily: 'Lato',
+        useMaterial3: false,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.amber,
+          foregroundColor: Colors.white,
+        ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.amber,
+          primary: Colors.blue,
+          secondary: Colors.amber,
+          tertiary: Colors.black,
+          
+        ),
+      ),
     );
   }
 }
@@ -24,15 +44,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-   final transactions = [
-
-
-    Transaction(
-      id: 't1',
-      title: 'Sei lá',
-      value: 310.00,
-      date: DateTime.now()
-    ),
+   final List <Transaction>transactions = [
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Sei lá',
+    //   value: 310.00,
+    //   date: DateTime.now()
+    // ),
   ];
 
   _addTransaction (String title, double value){
@@ -64,7 +82,6 @@ class _HomePageState extends State<HomePage> {
           IconButton(onPressed: () => _openTransactionFormModal(context), 
           icon: Icon(Icons.add)),
         ],
-        backgroundColor: Colors.red, 
         title: Text('Despesas Pessoais'),   
         ),
         body: SingleChildScrollView(
@@ -72,14 +89,18 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               
-              Container(
-                child: Card(
-                  color: Colors.red,
-                  elevation: 5,
-                  child: Center(
-                    child: Text('Gráfico'),
-                  )
-                ),
+              Column(
+                children: [
+                  Container(
+                    child: Card(
+                      elevation: 5,
+                      child: Center(
+                        child: Text('Gráfico'),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                ],
               ),
 
               TransactionsList(transactions),
