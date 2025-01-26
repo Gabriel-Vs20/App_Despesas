@@ -8,10 +8,29 @@ main() => runApp(AppGestao());
 
 class AppGestao extends StatelessWidget {
 
+ 
+
+  final ThemeData tema = ThemeData();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MaterialApp(home: HomePage())
+      home: HomePage(),
+      theme: ThemeData(
+        fontFamily: 'Lato',
+        useMaterial3: false,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.amber,
+          foregroundColor: Colors.white,
+        ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.amber,
+          primary: Colors.purple,
+          secondary: Colors.amber,
+          tertiary: Colors.black,
+          
+        ),
+      ),
     );
   }
 }
@@ -64,7 +83,6 @@ class _HomePageState extends State<HomePage> {
           IconButton(onPressed: () => _openTransactionFormModal(context), 
           icon: Icon(Icons.add)),
         ],
-        backgroundColor: Colors.red, 
         title: Text('Despesas Pessoais'),   
         ),
         body: SingleChildScrollView(
@@ -74,7 +92,6 @@ class _HomePageState extends State<HomePage> {
               
               Container(
                 child: Card(
-                  color: Colors.red,
                   elevation: 5,
                   child: Center(
                     child: Text('Gráfico'),

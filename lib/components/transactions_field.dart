@@ -43,7 +43,6 @@ class _TransactionsFieldState extends State<TransactionsField> {
                    child: ElevatedButton(
                 
                     style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Colors.red),
                       foregroundColor: WidgetStatePropertyAll(const Color.fromARGB(255, 255, 255, 255))
           
                     ),

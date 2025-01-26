@@ -26,7 +26,6 @@ class TransactionsList extends StatelessWidget {
       
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors.red,
                             width: 2
                           )
                         ),
@@ -36,7 +35,7 @@ class TransactionsList extends StatelessWidget {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: const Color.fromARGB(255, 255, 8, 0)
+                            
                           ),
                         ),
                       
