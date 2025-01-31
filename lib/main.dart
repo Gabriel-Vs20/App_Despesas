@@ -1,3 +1,4 @@
+import 'package:app2flutter/components/chart.dart';
 import 'package:flutter/material.dart';
 import './models/transaction.dart';
 import './components/transactions_list.dart';
@@ -7,9 +8,6 @@ import 'dart:math';
 main() => runApp(AppGestao());
 
 class AppGestao extends StatelessWidget {
-
- 
-
   final ThemeData tema = ThemeData();
 
   @override
@@ -29,7 +27,6 @@ class AppGestao extends StatelessWidget {
           primary: Colors.blue,
           secondary: Colors.amber,
           tertiary: Colors.black,
-          
         ),
       ),
     );
@@ -37,41 +34,46 @@ class AppGestao extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<Transaction> transactions = [];
 
-   final List <Transaction>transactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Sei lá',
-    //   value: 310.00,
-    //   date: DateTime.now()
-    // ),
-  ];
+  List<Transaction> get _recentTransactions {
+    return transactions.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
-  _addTransaction (String title, double value){
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
-    id:Random().nextDouble().toString(), 
-    title: title,
-    value: value,
-    date: DateTime.now());
+        id: Random().nextDouble().toString(),
+        title: title,
+        value: value,
+        date: date);
 
     setState(() {
       transactions.add(newTransaction);
     });
   }
 
-    
-    _openTransactionFormModal(BuildContext context){
-    showModalBottomSheet(context: context,
-     builder: (_){
-      return TransactionsField(_addTransaction);
-     }
-     );
+  _openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return TransactionsField(_addTransaction);
+        });
+  }
+
+  _deleteTransaction (String id){
+    setState(() {
+
+      transactions.removeWhere((tr){
+        return tr.id == id;
+      });
+    });
   }
 
   @override
@@ -79,38 +81,31 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: () => _openTransactionFormModal(context), 
-          icon: Icon(Icons.add)),
+          IconButton(
+              onPressed: () => _openTransactionFormModal(context),
+              icon: Icon(Icons.add)),
         ],
-        title: Text('Despesas Pessoais'),   
+        title: Text('Despesas Pessoais'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Column(
+              children: [
+                Chart(_recentTransactions),
+                SizedBox(height: 50),
+              ],
+            ),
+            TransactionsList(transactions, _deleteTransaction),
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              
-              Column(
-                children: [
-                  Container(
-                    child: Card(
-                      elevation: 5,
-                      child: Center(
-                        child: Text('Gráfico'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 50),
-                ],
-              ),
-
-              TransactionsList(transactions),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(onPressed: () => _openTransactionFormModal(context),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _openTransactionFormModal(context),
         child: Icon(Icons.add),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        );
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
   }
 }
