@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import './models/transaction.dart';
 import './components/transactions_list.dart';
 import './components/transactions_field.dart';
-import './components/chart.dart';
 import 'dart:math';
 
 main() => runApp(AppGestao());
@@ -40,18 +39,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<Transaction> transactions = [
-    Transaction(
-        id: 't1',
-        title: 'Sei lá',
-        value: 310.00,
-        date: DateTime.now().subtract(Duration(days: 3))),
-    Transaction(
-        id: 't2',
-        title: 'Sei lá',
-        value: 400,
-        date: DateTime.now().subtract(Duration(days: 33))),
-  ];
+  final List<Transaction> transactions = [];
 
   List<Transaction> get _recentTransactions {
     return transactions.where((tr) {
@@ -59,12 +47,12 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
-  _addTransaction(String title, double value) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,
         value: value,
-        date: DateTime.now());
+        date: date);
 
     setState(() {
       transactions.add(newTransaction);
@@ -77,6 +65,15 @@ class _HomePageState extends State<HomePage> {
         builder: (_) {
           return TransactionsField(_addTransaction);
         });
+  }
+
+  _deleteTransaction (String id){
+    setState(() {
+
+      transactions.removeWhere((tr){
+        return tr.id == id;
+      });
+    });
   }
 
   @override
@@ -100,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 50),
               ],
             ),
-            TransactionsList(transactions),
+            TransactionsList(transactions, _deleteTransaction),
           ],
         ),
       ),
