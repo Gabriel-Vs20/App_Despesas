@@ -39,75 +39,82 @@ class _TransactionsFieldState extends State<TransactionsField> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-              elevation: 5,
-               child: Padding(
-                 padding: const EdgeInsets.all(10),
-                 child: Column(
-                 children: [
-                 
-                    TextField(
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                      labelText: 'Titulo',
-                      
-                      ),
-                    ),
-                    TextField(
-                      controller: _valueController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                      labelText: 'Valor R\$',
-                      ),
-                    ),
-                  Container(
-                    height: 70,
-                    child: Row(children: [
-                    
-                      Expanded(
-                        child: Text(
-                          _selectedDate == null ? "Nenhuma data selecionada"
-                          : DateFormat('dd/MM/y').format(_selectedDate)),
-                      ),
-                      ElevatedButton(onPressed: _showDatePicker, child: Text("Selecionar data",
-                      style: TextStyle(
-                        fontSize: 20
-                      ),))
-                    
-                    ],
-                    ),
-                  ),
-
-                 Row(
+    return SingleChildScrollView(
+      child: Card(
+                elevation: 5,
+                 child: Padding(
+                   padding: EdgeInsets.only(
+                    top: 10,
+                    right: 10,
+                    left: 10,
+                    bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
+                   ),
+                   child: Column(
                    children: [
-                     Card(
-                      elevation: 6,
-                       child: ElevatedButton(
-                                       
-                        style: ButtonStyle(
-                          foregroundColor: WidgetStatePropertyAll(const Color.fromARGB(255, 255, 255, 255))
-                                 
-                        ),
+                   
+                      TextField(
+                        controller: _titleController,
+                        decoration: InputDecoration(
+                        labelText: 'Titulo',
                         
-                        onPressed: (){
-                       
-                        final title = _titleController.text;
-                        final value = double.tryParse(_valueController.text) ?? 0.0;
-                       
-                        widget._addTransaction(title, value, _selectedDate);
-                        Navigator.pop(context);
-                       
-                       },
-                       child: Text(
-                        '+ Transação'
+                        ),
+                      ),
+                      TextField(
+                        controller: _valueController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                        labelText: 'Valor R\$',
+                        ),
+                      ),
+                    Container(
+                      height: 70,
+                      child: Row(children: [
+                      
+                        Expanded(
+                          child: Text(
+                            _selectedDate == null ? "Nenhuma data selecionada"
+                            : DateFormat('dd/MM/y').format(_selectedDate)),
+                        ),
+                        ElevatedButton(onPressed: _showDatePicker, child: Text("Selecionar data",
+                        style: TextStyle(
+                          fontSize: 20
+                        ),))
+                      
+                      ],
+                      ),
+                    ),
+      
+                   Row(
+                     children: [
+                       Card(
+                        elevation: 6,
+                         child: ElevatedButton(
+                                         
+                          style: ButtonStyle(
+                            foregroundColor: WidgetStatePropertyAll(const Color.fromARGB(255, 255, 255, 255))
+                                   
+                          ),
+                          
+                          onPressed: (){
+                         
+                          final title = _titleController.text;
+                          final value = double.tryParse(_valueController.text) ?? 0.0;
+                         
+                          widget._addTransaction(title, value, _selectedDate);
+                          Navigator.pop(context);
+                         
+                         },
+                         child: Text(
+                          '+ Transação'
+                         ),
+                         ),
                        ),
-                       ),
-                     ),
+                     ],
+                   ),
                    ],
+                                 ),
                  ),
-                 ],
-                               ),
-               ),
-            );
+              ),
+    );
   }
 }
