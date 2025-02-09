@@ -41,6 +41,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<Transaction> transactions = [];
 
+  bool showChart = false;
+
   List<Transaction> get _recentTransactions {
     return transactions.where((tr) {
       return tr.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
@@ -79,11 +81,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
+    bool isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
+
+
     final appBar = AppBar(
         actions: [
           IconButton(
               onPressed: () => _openTransactionFormModal(context),
               icon: Icon(Icons.add)),
+          if(isLandScape)
+          IconButton(onPressed: (){
+          setState(() {
+            showChart = !showChart;
+          });
+        },
+        icon: Icon(showChart ? Icons.list : Icons.add_chart)),
         ],
         title: Text('Despesas Pessoais',
         style: TextStyle(
@@ -105,14 +117,17 @@ class _HomePageState extends State<HomePage> {
           children: [
             Column(
               children: [
+                if(showChart || !isLandScape)
                 Container(
-                  height: availableHeight * 0.35,
+                  height: availableHeight * (isLandScape ? 0.7 : 0.3),
                   child: Chart(_recentTransactions)),
+                if(!showChart || !isLandScape)
+                Container(
+                height: availableHeight * 0.65,
+                child: TransactionsList(transactions, _deleteTransaction)),
               ],
             ),
-            Container(
-              height: availableHeight * 0.65,
-              child: TransactionsList(transactions, _deleteTransaction)),
+            
           ],
         ),
       ),
