@@ -12,18 +12,23 @@ class TransactionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return transactions.isEmpty ? Column(
+    return transactions.isEmpty ? 
+    LayoutBuilder(
+      builder: (context, constraints){
+      return Column(
       children: [
         Text("Nenhuma transação cadastrada."),
     
-        SizedBox(height: 100),
+        SizedBox(height: constraints.maxHeight * 0.1),
     
         Container(
-          height: 200,
+          height: constraints.maxHeight * 0.6,
           child: Image.asset('assets/img/zzz.png',
-          fit: BoxFit.cover,),
+          fit: BoxFit.cover),
         )
-      ],
+        ],
+      );
+     },
     )
     : ListView(
       children: 
